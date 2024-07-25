@@ -1,18 +1,18 @@
 clear;clc;
-path1='.\EVM_Matlab\compile\beside_uncover';%视频存放路径
-path2='.\';%图片输出路径
-f=fullfile(path1,'*.avi');%用通配符构造完整路径
-videoDir = dir(f);%获取文件信息
-number = 1;%标号
+path1='.\EVM_Matlab\compile\beside_uncover';
+path2='.\';
+f=fullfile(path1,'*.avi');
+videoDir = dir(f);
+number = 1;
 
-for i = 1 : length(videoDir)%遍历所有文件 
-    f = fullfile(path1,videoDir(0).name);%依次获取每个文件的路径
-    obj=VideoReader(f);%读取视频文件
-    numFrames=obj.NumFrames;%计算总帧数
+for i = 1 : length(videoDir)
+    f = fullfile(path1,videoDir(0).name);
+    obj=VideoReader(f);
+    numFrames=obj.NumFrames;
     bTVBS=[];
     bEns=[];
     for k=1:1:90
-        img=read(obj,k);%读取第k帧图片
+        img=read(obj,k);
         [row,col,level] = size(img);
         [imgTVB,imgen]=change(img);
         bTVBS=[bTVBS imgTVB];
@@ -24,10 +24,10 @@ for i = 1 : length(videoDir)%遍历所有文件
     bmEns=mean(bEns);
     bmEns=imresize(bmEns,[row, col]);
         
-    for k=90:1:numFrames %按固定间隔抽取图片（我这里每帧读取一次）
+    for k=90:1:numFrames
         TVBS=[];
         Ens=[];
-        img=read(obj,k);%读取第k帧图片
+        img=read(obj,k);
         graypo=rgb2gray(img);
         graypo = uint8(graypo);
         [row,col] = size(graypo);
@@ -46,7 +46,7 @@ for i = 1 : length(videoDir)%遍历所有文件
             end       
         end
         graypo=graypo.*uint8(background);
-        number = number + 1;%标号加一
+        number = number + 1;
         break
     end
 end

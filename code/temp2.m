@@ -1,13 +1,13 @@
 clear;clc;
-f=fullfile('E:\AAworking\烟雾检测\EVM_Matlab\compile\beside_uncover\0.avi');
-number = 1;%标号
-obj=VideoReader(f);%读取视频文件
-numFrames=obj.NumFrames;%计算总帧数
+f=fullfile('E:\AAworking\smoke\EVM_Matlab\compile\beside_uncover\0.avi');
+number = 1;
+obj=VideoReader(f);
+numFrames=obj.NumFrames;
 bTVBS=[];
 bEns=[];
 
 for k=1:1:90
-    img=read(obj,k);%读取第k帧图片
+    img=read(obj,k);
     [row,col,level] = size(img);
     [imgTVB,imgen]=change(img);
     bTVBS=[bTVBS imgTVB];
@@ -19,10 +19,10 @@ bmTVBS=imresize(bmTVBS,[row, col]);
 bmEns=mean(bEns);
 bmEns=imresize(bmEns,[row, col]);
 
-for k=90:15:numFrames %按固定间隔抽取图片（我这里每帧读取一次）
+for k=90:15:numFrames 
     TVBS=[];
     Ens=[];
-    img=read(obj,k);%读取第k帧图片
+    img=read(obj,k);
     graypo=rgb2gray(img);
     graypo = uint8(graypo);
     [row,col] = size(graypo);
@@ -48,7 +48,7 @@ for k=90:15:numFrames %按固定间隔抽取图片（我这里每帧读取一次
     end
     adressString = ['C:\Users\lenovo\Desktop\6\' ,sprintf('%0.4d', number),'.jpg'];
     imwrite(des, adressString,'jpg');
-    number = number + 1;%标号加一
+    number = number + 1;
     %graypo=graypo.*uint8(background);
     
 end

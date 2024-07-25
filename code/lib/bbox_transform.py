@@ -38,7 +38,6 @@ def bbox_transform_inv(boxes, deltas):
     ctr_y = boxes[:, 1] + 0.5 * heights
     
     '''
-    # 修改下，将 dx, dy, dw, dh 中的空值（NaN）置为1
     dx = np.nan_to_num(deltas[:, 0::4], nan=1)
     dy = np.nan_to_num(deltas[:, 1::4], nan=1)
     dw = np.nan_to_num(deltas[:, 2::4], nan=1)
